@@ -1,0 +1,6 @@
+﻿
+        ﻿Content/birds.32x32.png - created by MoikMellah of OpenGameArt.org (https://opengameart.org/content/animated-birds-32x32), released under public domain
+
+        ﻿Content/egg.png - created by GoopyBus of OpenGameArt.org (https://opengameart.org/content/egg-item-sprite), released under public domain
+
+        Content/Bangers/Bangers-Regular.ttf - Bangers font created by Vernon Adams, released on Google Fonts (https://fonts.google.com/specimen/Bangers) under the Open Font License
