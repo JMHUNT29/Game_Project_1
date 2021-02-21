@@ -4,15 +4,28 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 using Game_Project_1.Collisions;
 
 namespace Game_Project_1
 {
     public class EggSprite
     {
+        public enum Side
+        {
+            Right = 0,
+            Left = 1,
+        }
+
+        private Side side;
+
         private double directionTimer;
 
+        private double waitTime;
+
         private Vector2 position;
+
+        private Vector2 velocity;
 
         private Texture2D texture;
 
@@ -31,8 +44,16 @@ namespace Game_Project_1
         /// Creates a new egg sprite
         /// </summary>
         /// <param name="position">The position of the sprite in the game</param>
-        public EggSprite(Vector2 position)
+        public EggSprite(Vector2 position, Side side)
         {
+            //Update waitTime which is how long egg goes up
+            System.Random rand = new System.Random();
+            this.waitTime = rand.NextDouble() + 1;
+
+            //Updates which side egg will come out on
+            this.side = side;
+
+            //Sets position and bounds for egg
             this.position = position;
             this.bounds = new BoundingCircle(position + new Vector2(16, 16), 16);
         }
@@ -52,20 +73,25 @@ namespace Game_Project_1
         /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
-            // Update the direction timer
+            System.Random rand = new System.Random();
+
             directionTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            //Switch directions every 2 seconds
-            if (directionTimer > 2.0)
-            {
-                directionTimer -= 2.0;
-            }
+            // Creates different velocities based on side and waitTime
+            if (directionTimer < waitTime && side == Side.Right) velocity = new Vector2((float)(rand.NextDouble() * -40), (float)(rand.NextDouble() * -40));
+            else if (directionTimer < waitTime && side == Side.Left) velocity = new Vector2((float)(rand.NextDouble() * 40), (float)(rand.NextDouble() * -40));
+            else if (directionTimer >= waitTime && side == Side.Right) velocity = new Vector2((float)(rand.NextDouble() * -40), (float)(rand.NextDouble() * 40));
+            else velocity = new Vector2((float)(rand.NextDouble() * 40), (float)(rand.NextDouble() * 40));
 
-            //Update position of the egg
-            position += new Vector2(0, 1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Vector2 acceleration = new Vector2(500, 750);
 
+            velocity += acceleration * t;
+            position += velocity * t;
+
+            if (Collected) this.bounds = new BoundingCircle(new Vector2(16, 16), 16);
             /// Update the bounds
-            this.bounds = new BoundingCircle(position + new Vector2(16, 16), 16);
+            else this.bounds = new BoundingCircle(position + new Vector2(16, 16), 16);
         }
 
         /// <summary>
@@ -78,7 +104,7 @@ namespace Game_Project_1
             if (Collected) return;
 
             var source = new Rectangle(0, 0, 32, 32);
-            spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(32, 32), 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, position, source, Color.Gold, 0, new Vector2(32, 32), 1, SpriteEffects.None, 0);
         }
     }
 }
