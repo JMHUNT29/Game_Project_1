@@ -26,11 +26,11 @@ namespace Game_Project_1
 
         private Texture2D atlas;
 
-        private Vector2 position = new Vector2(400, 350);
+        public Vector2 position = new Vector2(400, 350);
 
         private bool flipped;
 
-        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 32, 200 - 32), 32, 32);
+        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 31, 200 - 31), 31, 31);
 
         private double animationTimer;
 
@@ -71,25 +71,25 @@ namespace Game_Project_1
             // Apply keyboard movement
             if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
             {
-                position += new Vector2(0, -1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(0, -2) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 direction = Direction.Up;
             }
 
             if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
             {
-                position += new Vector2(0, 1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(0, 2) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 direction = Direction.Down;
             }
 
             if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
             {
-                position += new Vector2(-3, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(-2, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 direction = Direction.Left;
                 flipped = true;
             }
             if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
             {
-                position += new Vector2(3, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(2, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 direction = Direction.Right;
                 flipped = false;
             }
@@ -117,9 +117,9 @@ namespace Game_Project_1
             }
 
             //Draws the sprite
-            var source = new Rectangle(animationFrame * 32, 0, 32, 32);
+            var source = new Rectangle(animationFrame * 31, 0, 31, 31);
             SpriteEffects spriteEffects = (flipped) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            spriteBatch.Draw(atlas, position, source, Color, 0, new Vector2(32, 32), 2f, spriteEffects, 0);
+            spriteBatch.Draw(atlas, position, source, Color, 0, new Vector2(31, 31), 2f, spriteEffects, 0);
         }
     }
 }

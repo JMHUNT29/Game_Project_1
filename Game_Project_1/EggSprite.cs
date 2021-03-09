@@ -78,13 +78,13 @@ namespace Game_Project_1
             directionTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             // Creates different velocities based on side and waitTime
-            if (directionTimer < waitTime && side == Side.Right) velocity = new Vector2((float)(rand.NextDouble() * -40), (float)(rand.NextDouble() * -40));
-            else if (directionTimer < waitTime && side == Side.Left) velocity = new Vector2((float)(rand.NextDouble() * 40), (float)(rand.NextDouble() * -40));
-            else if (directionTimer >= waitTime && side == Side.Right) velocity = new Vector2((float)(rand.NextDouble() * -40), (float)(rand.NextDouble() * 40));
-            else velocity = new Vector2((float)(rand.NextDouble() * 40), (float)(rand.NextDouble() * 40));
+            if (directionTimer < waitTime && side == Side.Right) velocity = new Vector2((float)(rand.NextDouble() * -100), (float)(rand.NextDouble() * -100));
+            else if (directionTimer < waitTime && side == Side.Left) velocity = new Vector2((float)(rand.NextDouble() * 100), (float)(rand.NextDouble() * -100));
+            else if (directionTimer > waitTime && side == Side.Right) velocity = new Vector2((float)(rand.NextDouble() * -100), (float)(rand.NextDouble() * 100));
+            else velocity = new Vector2((float)(rand.NextDouble() * 100), (float)(rand.NextDouble() * 100));
 
             float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Vector2 acceleration = new Vector2(500, 750);
+            Vector2 acceleration = new Vector2(1100, 1100);
 
             velocity += acceleration * t;
             position += velocity * t;
