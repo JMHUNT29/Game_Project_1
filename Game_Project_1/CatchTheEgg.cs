@@ -119,7 +119,7 @@ namespace Game_Project_1
             foreach (var egg in eggs)
             {
                 if (lose == false) egg.Draw(gameTime, spriteBatch);
-                if (egg.Bounds.Center.Y > GraphicsDevice.Viewport.Height) lose = true;
+                if (egg.Bounds.Center.Y - 32 > GraphicsDevice.Viewport.Height) lose = true;
             }
 
             bird.Draw(gameTime, spriteBatch);
