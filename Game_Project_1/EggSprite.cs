@@ -104,7 +104,7 @@ namespace Game_Project_1
             if (Collected) return;
 
             var source = new Rectangle(0, 0, 32, 32);
-            spriteBatch.Draw(texture, position, source, Color.Gold, 0, new Vector2(32, 32), 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, position, source, Color.ForestGreen, 0, new Vector2(32, 32), 1, SpriteEffects.None, 0);
         }
     }
 }

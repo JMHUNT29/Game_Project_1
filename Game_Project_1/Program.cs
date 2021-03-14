@@ -7,7 +7,7 @@ namespace Game_Project_1
         [STAThread]
         static void Main()
         {
-            using (var game = new CatchTheEgg())
+            using (var game = new Game1())
                 game.Run();
         }
     }

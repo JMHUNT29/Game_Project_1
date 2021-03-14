@@ -4,12 +4,15 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System;
+using Game_Project_1.Screens;
+using Game_Project_1.StateManagement;
 
 namespace Game_Project_1
 {
     public class CatchTheEgg : Game
     {
         private GraphicsDeviceManager graphics;
+        private readonly ScreenManager _screenManager;
         private SpriteBatch spriteBatch;
 
         private EggSprite[] eggs;
@@ -38,17 +41,7 @@ namespace Game_Project_1
         /// </summary>
         protected override void Initialize()
         {
-            System.Random rand = new System.Random();
-            eggs = new EggSprite[]
-            {
-                new EggSprite(new Vector2(GraphicsDevice.Viewport.Width, (float)(rand.NextDouble() * GraphicsDevice.Viewport.Height * 0.7)), EggSprite.Side.Right),
-                new EggSprite(new Vector2(0, (float)(rand.NextDouble() * GraphicsDevice.Viewport.Height * 0.7)), EggSprite.Side.Left),
-                new EggSprite(new Vector2(GraphicsDevice.Viewport.Width, (float)(rand.NextDouble() * GraphicsDevice.Viewport.Height * 0.7)), EggSprite.Side.Right),
-                new EggSprite(new Vector2(0, (float)(rand.NextDouble() * GraphicsDevice.Viewport.Height * 0.7)), EggSprite.Side.Left),
-                new EggSprite(new Vector2(GraphicsDevice.Viewport.Width, (float)(rand.NextDouble() * GraphicsDevice.Viewport.Height * 0.7)), EggSprite.Side.Right)
-            };
-            eggsGathered = 0;
-            bird = new BirdSprite();
+
 
             base.Initialize();
         }
@@ -124,11 +117,7 @@ namespace Game_Project_1
 
             bird.Draw(gameTime, spriteBatch);
 
-            if (eggsGathered == 0 && lose == false)
-            {
-                spriteBatch.DrawString(spriteFont, $"Catch The Eggs Before they reach the bottom!", new Vector2(1, GraphicsDevice.Viewport.Height - 100), Color.FloralWhite);
-            }
-            else if (eggsGathered < 5 && lose == true)
+            if (eggsGathered < 5 && lose == true)
             {
                 bird.Color = Color.Red;
                 spriteBatch.DrawString(spriteFont, $"You Lose!", new Vector2((GraphicsDevice.Viewport.Width/2) - 64, (GraphicsDevice.Viewport.Height/2) - 32), Color.Red);

@@ -9,4 +9,6 @@
 
         Content/Komiku - Tale on the Late - 13 The Wind.mp3 - created by Loyalty Freak Music of OpenGameArt.org (https://opengameart.org/content/the-wind), released under public domain
 
+        Content/blank.png - created by Microsoft, released under Microsoft permissive license (http://www.worldlii.org/int/other/PubRL/2009/38.html)
+
         Content/Bangers/Bangers-Regular.ttf - Bangers font created by Vernon Adams, released on Google Fonts (https://fonts.google.com/specimen/Bangers) under the Open Font License
