@@ -46,7 +46,7 @@ namespace Game_Project_1
 
         public bool Ready = true;
 
-        public float accelerationChange = 0;
+        public float accelerationChange = (float)0.005;
 
 
 
@@ -64,7 +64,7 @@ namespace Game_Project_1
             //Sets start position for egg.
             this.Start = position;
             this.bounds = new BoundingCircle(position + new Vector2(32, 32), 32);
-            velocity = new Vector2(325, this.Position.Y);
+            velocity = new Vector2(300, this.Position.Y);
         }
 
         /// <summary>
@@ -82,19 +82,20 @@ namespace Game_Project_1
         /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
-            if (this.Position.X <= -64 && BalloonReset == true) this.Position = Start;
+            waitTimer += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (this.Position.X <= -64 && BalloonReset) this.Position = Start;
             else if (this.Position.X > -64 && BalloonReset)
             {
-                waitTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (waitTimer - waitTime == 5)
+
+                if (waitTimer - waitTime >= 15 && accelerationChange < 0.01)
                 {
-                    accelerationChange += 500;
+                    velocity = new Vector2(velocity.X + accelerationChange, Position.Y);
                     waitTime = gameTime.ElapsedGameTime.TotalSeconds;
                 }
 
                 float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                Vector2 acceleration = new Vector2(200 + accelerationChange, Position.Y);
 
                 Position.X -= velocity.X * t;
 

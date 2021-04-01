@@ -20,7 +20,7 @@ namespace Game_Project_1
 
         public Vector2 position = new Vector2(150, 500);
 
-        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(150 - 32, 500 - 32), 32, 32);
+        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(150 - 16, 500 - 16), 32, 32);
 
         private double animationTimer;
 
@@ -53,8 +53,8 @@ namespace Game_Project_1
         {
             keyboardState = Keyboard.GetState();
 
-            if (position.Y > 915) position = new Vector2(150, 915);
-            else if (position.Y < 200) position = new Vector2(150, 200);
+            if (position.Y > 700) position = new Vector2(150, 700);
+            else if (position.Y < 250) position = new Vector2(150, 250);
 
             // Apply keyboard movement
             if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
@@ -68,7 +68,7 @@ namespace Game_Project_1
             }
 
             /// Update the bounds
-            bounds.Y = position.Y - 32;
+            bounds.Y = position.Y - 16;
         }
 
         /// <summary>

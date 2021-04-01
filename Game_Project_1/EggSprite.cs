@@ -56,7 +56,7 @@ namespace Game_Project_1
 
         private double waitTime = 0;
 
-        private float acc_change = 0;
+        private float accelerationChange = (float)0.006;
 
 
 
@@ -74,7 +74,7 @@ namespace Game_Project_1
             //Sets start position for egg.
             this.Start = position;
             this.bounds = new BoundingCircle(position + new Vector2(16, 16), 16);
-            velocity = new Vector2(325, this.Position.Y);
+            velocity = new Vector2(300, this.Position.Y);
         }
 
         /// <summary>
@@ -92,19 +92,20 @@ namespace Game_Project_1
         /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
-            if (this.Position.X <= -64 && EggReset == true) this.Position = Start;
-            else if (this.Position.X > -64 && EggReset == true)
-            {
-                waitTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            waitTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (waitTimer - waitTime == 5)
-                { 
-                    acc_change += 500;
+            if (this.Position.X <= -64 && EggReset) this.Position = Start;
+            else if (this.Position.X > -64 && EggReset)
+            {
+
+
+                if (waitTimer - waitTime >= 15 && accelerationChange < 0.01)
+                {
+                    velocity = new Vector2(velocity.X + accelerationChange, Position.Y);
                     waitTime = gameTime.ElapsedGameTime.TotalSeconds;
                 }
 
                 float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                Vector2 acceleration = new Vector2(200 + acc_change, Position.Y);
 
                 Position.X -= velocity.X * t;
 

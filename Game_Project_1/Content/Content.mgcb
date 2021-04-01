@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin 1.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:1.ogg
-
 #begin Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -97,6 +91,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:New Piskel.png
+
+#begin Pickup_Coin15.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Pickup_Coin15.wav
 
 #begin Rough_Game_Balloon.png
 /importer:TextureImporter

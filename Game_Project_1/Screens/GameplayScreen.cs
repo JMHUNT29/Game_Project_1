@@ -33,7 +33,7 @@ namespace Game_Project_1.Screens
         private Texture2D _background;
 
         public SoundEffect eggPickup;
-        public SoundEffect hitSound;
+        public SoundEffect heartPickup;
         public Song backgroundMusic;
 
         private int choice = 0;
@@ -97,9 +97,10 @@ namespace Game_Project_1.Screens
             bird.LoadContent(_content);
             _font = _content.Load<SpriteFont>("bangers");
             eggPickup = _content.Load<SoundEffect>("birdchirping071414");
-            hitSound = _content.Load<SoundEffect>("1");
+            heartPickup = _content.Load<SoundEffect>("Pickup_Coin15");
             backgroundMusic = _content.Load<Song>("Komiku - Tale on the Late - 13 The Wind");
             MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
 
             heart = _content.Load<Texture2D>("New Piskel");
 
@@ -145,11 +146,12 @@ namespace Game_Project_1.Screens
                         egg.Collected = true;
                         if (egg.Lives == true)
                         {
+                            heartPickup.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
                             if (lives < 5) lives++;
                             egg.Lives = false;
                         }
                         egg.Position = new Vector2(-64, 0);
-                        eggPickup.Play(volume: 0.5f, pitch: 0.0f, pan: 0.0f);
+                        eggPickup.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
                     }
 
                 }
@@ -161,7 +163,6 @@ namespace Game_Project_1.Screens
                     {
                         lives--;
                         balloon.Hit = true;
-                        eggPickup.Play(volume: 0.5f, pitch: 1f, pan: 0.0f);
                     }
                 }
 
@@ -314,7 +315,7 @@ namespace Game_Project_1.Screens
             {
                 lose = true;
                 bird.Color = Color.Red;
-                spriteBatch.DrawString(_font, $"You Failed!", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width / 2) - 64, (ScreenManager.GraphicsDevice.Viewport.Height / 2) - 32), new Color(244, 255, 255));
+                spriteBatch.DrawString(_font, $"You Failed!", new Vector2(400, (ScreenManager.GraphicsDevice.Viewport.Height / 2)), new Color(244, 255, 255));
                 MediaPlayer.Stop();
                 if (ScreenManager.gameCounter == 0) ScreenManager.bestTime = time;
                 ScreenManager.gameCounter++;
