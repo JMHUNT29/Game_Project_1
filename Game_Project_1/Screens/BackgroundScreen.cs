@@ -32,7 +32,7 @@ namespace Game_Project_1.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            _backgroundTexture = _content.Load<Texture2D>("sunny-background-large");
+            _backgroundTexture = _content.Load<Texture2D>("Background");
         }
 
         public override void Unload()

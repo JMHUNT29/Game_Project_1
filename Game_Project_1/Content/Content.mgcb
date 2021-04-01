@@ -13,7 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../Desktop/Rough_Game_Balloon.png
+#begin 1.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:1.ogg
+
+#begin Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,7 +29,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../../Desktop/Rough_Game_Balloon.png;Rough_Game_Balloon.png
+/build:Background.png
 
 #begin bangers.spritefont
 /importer:FontDescriptionImporter
@@ -62,7 +68,7 @@
 /processorParam:TextureFormat=Color
 /build:blank.png
 
-#begin egg.png
+#begin Egg.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -72,7 +78,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:egg.png
+/build:Egg.png
 
 #begin Komiku - Tale on the Late - 13 The Wind.mp3
 /importer:Mp3Importer
@@ -91,6 +97,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:New Piskel.png
+
+#begin Rough_Game_Balloon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rough_Game_Balloon.png
 
 #begin Rough_Game_Foreground.png
 /importer:TextureImporter
@@ -127,16 +145,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Rough_Game_Sky.png
-
-#begin sunny-background-large.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:sunny-background-large.png
 

@@ -33,6 +33,7 @@ namespace Game_Project_1.Screens
         private Texture2D _background;
 
         public SoundEffect eggPickup;
+        public SoundEffect hitSound;
         public Song backgroundMusic;
 
         private int choice = 0;
@@ -96,6 +97,7 @@ namespace Game_Project_1.Screens
             bird.LoadContent(_content);
             _font = _content.Load<SpriteFont>("bangers");
             eggPickup = _content.Load<SoundEffect>("birdchirping071414");
+            hitSound = _content.Load<SoundEffect>("1");
             backgroundMusic = _content.Load<Song>("Komiku - Tale on the Late - 13 The Wind");
             MediaPlayer.Play(backgroundMusic);
 
@@ -159,6 +161,7 @@ namespace Game_Project_1.Screens
                     {
                         lives--;
                         balloon.Hit = true;
+                        eggPickup.Play(volume: 0.5f, pitch: 1f, pan: 0.0f);
                     }
                 }
 

@@ -83,7 +83,7 @@ namespace Game_Project_1
         /// <param name="content">The ContentManager to load with</param>
         public void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>("egg");
+            texture = content.Load<Texture2D>("Egg");
         }
 
         /// <summary>

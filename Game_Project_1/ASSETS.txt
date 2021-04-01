@@ -11,4 +11,6 @@
 
         Content/New Piskel.png - created by djantosh10 of OpenGameArt.org (https://opengameart.org/content/heart-5), released under public domain
 
+        Content/1.ogg - created by Exewin of OpenGameArt.org (https://opengameart.org/content/death-sounds-0), released under public domain
+
         Content/Bangers/Bangers-Regular.ttf - Bangers font created by Vernon Adams, released on Google Fonts (https://fonts.google.com/specimen/Bangers) under the Open Font License
