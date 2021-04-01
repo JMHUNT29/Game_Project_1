@@ -27,7 +27,7 @@ namespace Game_Project_1.Screens
 
         protected override void OnCancel(PlayerIndex playerIndex)
         {
-            const string message = "Are you sure you want to exit?";
+            const string message = "Exit?";
             var confirmExitMessageBox = new ExitMessageBoxScreen(message);
 
             confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;

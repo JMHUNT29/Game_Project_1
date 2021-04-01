@@ -43,6 +43,16 @@ namespace Game_Project_1.StateManagement
         public float Volume = (float)0.6;
 
         /// <summary>
+        /// Keeps track of games played
+        /// </summary>
+        public int gameCounter = 0;
+
+        /// <summary>
+        /// Keeps track of best time
+        /// </summary>
+        public double bestTime = 0;
+
+        /// <summary>
         /// Constructs a new ScreenManager
         /// </summary>
         /// <param name="game">The game this ScreenManager belongs to</param>

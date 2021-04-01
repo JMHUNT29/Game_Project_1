@@ -94,8 +94,8 @@ namespace Game_Project_1.Screens
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_gradientTexture, backgroundRectangle, Color.Gray * TransitionAlpha);
-            spriteBatch.DrawString(font, _message, textPosition, Color.FloralWhite * TransitionAlpha);
+            spriteBatch.Draw(_gradientTexture, backgroundRectangle, new Color(85, 149, 111) * TransitionAlpha);
+            spriteBatch.DrawString(font, _message, textPosition, new Color(244, 255, 255) * TransitionAlpha);
 
             spriteBatch.End();
         }

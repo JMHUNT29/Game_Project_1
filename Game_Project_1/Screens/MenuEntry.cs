@@ -55,7 +55,7 @@ namespace Game_Project_1.Screens
         // This can be overridden to customize the appearance.
         public virtual void Draw(MenuScreen screen, bool isSelected, GameTime gameTime)
         {
-            var color = isSelected ? Color.ForestGreen : Color.Gray;
+            var color = isSelected ? new Color(244, 255, 255) : new Color(85, 149, 111);
 
             // Modify the alpha to fade text out during transitions.
             color *= screen.TransitionAlpha;

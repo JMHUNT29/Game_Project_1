@@ -14,32 +14,17 @@ namespace Game_Project_1
     /// </summary>
     public class BirdSprite
     {
-        public enum Direction
-        {
-            Down = 0,
-            Right = 1,
-            Up = 2,
-            Left = 3,
-        }
-
         private KeyboardState keyboardState;
 
         private Texture2D atlas;
 
-        public Vector2 position = new Vector2(400, 350);
+        public Vector2 position = new Vector2(150, 500);
 
-        private bool flipped;
-
-        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 31, 200 - 31), 31, 31);
+        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(150 - 32, 500 - 32), 32, 32);
 
         private double animationTimer;
 
         private short animationFrame = 1;
-
-        /// <summary>
-        /// The direction of the bird
-        /// </summary>
-        public Direction direction;
 
         /// <summary>
         /// The bounding volume of the sprite
@@ -68,35 +53,22 @@ namespace Game_Project_1
         {
             keyboardState = Keyboard.GetState();
 
+            if (position.Y > 915) position = new Vector2(150, 915);
+            else if (position.Y < 200) position = new Vector2(150, 200);
+
             // Apply keyboard movement
             if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
             {
-                position += new Vector2(0, -2) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                direction = Direction.Up;
+                position += new Vector2(0, -3)  * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
             {
-                position += new Vector2(0, 2) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                direction = Direction.Down;
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
-            {
-                position += new Vector2(-2, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                direction = Direction.Left;
-                flipped = true;
-            }
-            if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
-            {
-                position += new Vector2(2, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                direction = Direction.Right;
-                flipped = false;
+                position += new Vector2(0, 3) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             /// Update the bounds
-            bounds.X = position.X - 16;
-            bounds.Y = position.Y - 16;
+            bounds.Y = position.Y - 32;
         }
 
         /// <summary>
@@ -112,14 +84,13 @@ namespace Game_Project_1
             if (animationTimer > 0.3)
             {
                 animationFrame++;
-                if (animationFrame > 4) animationFrame = 1;
+                if (animationFrame > 3) animationFrame = 0;
                 animationTimer -= 0.3;
             }
 
             //Draws the sprite
-            var source = new Rectangle(animationFrame * 31, 0, 31, 31);
-            SpriteEffects spriteEffects = (flipped) ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            spriteBatch.Draw(atlas, position, source, Color, 0, new Vector2(31, 31), 2f, spriteEffects, 0);
+            var source = new Rectangle(animationFrame * 32, 0, 32, 32);
+            spriteBatch.Draw(atlas, position, source, Color, 0, new Vector2(32, 32), 2.5f, SpriteEffects.FlipHorizontally, 0);
         }
     }
 }

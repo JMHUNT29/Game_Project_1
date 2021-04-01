@@ -98,7 +98,7 @@ namespace Game_Project_1.Screens
             float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
             // start at Y = 175; each X value is generated per entry
-            var position = new Vector2(0f, 175f);
+            var position = new Vector2(0f, 400f);
 
             // update each menu entry's location in turn
             foreach (var menuEntry in _menuEntries)
@@ -149,18 +149,11 @@ namespace Game_Project_1.Screens
                 menuEntry.Draw(this, isSelected, gameTime);
             }
 
-            // Make the menu slide into place during transitions, using a
-            // power curve to make things look more interesting (this makes
-            // the movement slow down as it nears the end).
-            float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
-
             // Draw the menu title centered on the screen
-            var titlePosition = new Vector2(graphics.Viewport.Width / 2, 80);
+            var titlePosition = new Vector2(graphics.Viewport.Width / 2,300);
             var titleOrigin = font.MeasureString(_menuTitle) / 2;
-            var titleColor = Color.Gray * TransitionAlpha;
+            var titleColor = new Color(85, 149, 111) * TransitionAlpha;
             const float titleScale = 1.25f;
-
-            titlePosition.Y -= transitionOffset * 100;
 
             spriteBatch.DrawString(font, _menuTitle, titlePosition, titleColor,
                 0, titleOrigin, titleScale, SpriteEffects.None, 0);

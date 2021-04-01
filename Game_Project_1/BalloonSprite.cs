@@ -9,13 +9,8 @@ using Game_Project_1.Collisions;
 
 namespace Game_Project_1
 {
-    public class EggSprite
+    class BalloonSprite
     {
-        public enum Side
-        {
-            Right = 0,
-            Left = 1,
-        }
 
         private double waitTimer;
 
@@ -35,28 +30,23 @@ namespace Game_Project_1
         /// <summary>
         /// Tells the egg to go back to starting position.
         /// </summary>
-        public bool EggReset;
-
-        /// <summary>
-        /// Whether or not egg will give player extra lives
-        /// </summary>
-        public bool Lives { get; set; } = false;
+        public bool BalloonReset;
 
         /// <summary>
         /// Whether or not egg was collected
         /// </summary>
-        public bool Collected { get; set; } = false;
+        public bool Hit { get; set; } = false;
 
         /// <summary>
         /// The bounding volume of the sprite
         /// </summary>
         public BoundingCircle Bounds => bounds;
 
-        public bool Ready = false;
-
         private double waitTime = 0;
 
-        private float acc_change = 0;
+        public bool Ready = true;
+
+        public float accelerationChange = 0;
 
 
 
@@ -64,16 +54,16 @@ namespace Game_Project_1
         /// Creates a new egg sprite
         /// </summary>
         /// <param name="position">The position of the sprite in the game</param>
-        public EggSprite(Vector2 position, bool reset)
+        public BalloonSprite(Vector2 position, bool reset)
         {
 
-            this.EggReset = reset;
+            this.BalloonReset = reset;
 
             //Sets position and bounds for egg
             this.Position = position;
             //Sets start position for egg.
             this.Start = position;
-            this.bounds = new BoundingCircle(position + new Vector2(16, 16), 16);
+            this.bounds = new BoundingCircle(position + new Vector2(32, 32), 32);
             velocity = new Vector2(325, this.Position.Y);
         }
 
@@ -83,7 +73,7 @@ namespace Game_Project_1
         /// <param name="content">The ContentManager to load with</param>
         public void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>("egg");
+            texture = content.Load<Texture2D>("Rough_Game_Balloon");
         }
 
         /// <summary>
@@ -92,27 +82,28 @@ namespace Game_Project_1
         /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
-            if (this.Position.X <= -64 && EggReset == true) this.Position = Start;
-            else if (this.Position.X > -64 && EggReset == true)
+            if (this.Position.X <= -64 && BalloonReset == true) this.Position = Start;
+            else if (this.Position.X > -64 && BalloonReset)
             {
                 waitTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (waitTimer - waitTime == 5)
-                { 
-                    acc_change += 500;
+                {
+                    accelerationChange += 500;
                     waitTime = gameTime.ElapsedGameTime.TotalSeconds;
                 }
 
                 float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                Vector2 acceleration = new Vector2(200 + acc_change, Position.Y);
+                Vector2 acceleration = new Vector2(200 + accelerationChange, Position.Y);
 
                 Position.X -= velocity.X * t;
 
             }
 
-            if (Collected) this.bounds = new BoundingCircle(new Vector2(16, 16), 16);
+            if (Hit) this.bounds = new BoundingCircle(new Vector2(32, 32), 32);
             /// Update the bounds
-            else this.bounds = new BoundingCircle(Position + new Vector2(16, 16), 16);
+            else this.bounds = new BoundingCircle(Position + new Vector2(32, 32), 32);
+
         }
 
         /// <summary>
@@ -122,11 +113,10 @@ namespace Game_Project_1
         /// <param name="spriteBatch">The spritebatch to render with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (Collected) return;
+            if (Hit) return;
 
-            var source = new Rectangle(0, 0, 32, 32);
-            if (Lives == true) spriteBatch.Draw(texture, Position, source, Color.Red, 0, new Vector2(32, 32), 1.5f, SpriteEffects.None, 0);
-            else spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(32, 32), 1.5f, SpriteEffects.None, 0);
+            var source = new Rectangle(0, 0, 64, 64);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(64, 64), 0.85f, SpriteEffects.None, 0);
 
         }
     }

@@ -89,7 +89,7 @@ namespace Game_Project_1.Screens
                 var spriteBatch = ScreenManager.SpriteBatch;
                 var font = ScreenManager.Font;
 
-                const string message = "Loading...\nCatch the eggs before they hit the bottom!";
+                const string message = "Loading...\n\nCatch as many eggs as you can!\nAvoid the balloons!";
 
                 // Center the text in the viewport.
                 var viewport = ScreenManager.GraphicsDevice.Viewport;
@@ -97,7 +97,7 @@ namespace Game_Project_1.Screens
                 var textSize = font.MeasureString(message);
                 var textPosition = (viewportSize - textSize) / 2;
 
-                var color = Color.Gray * TransitionAlpha;
+                var color = new Color(85, 149, 111) * TransitionAlpha;
 
                 // Draw the text.
                 spriteBatch.Begin();

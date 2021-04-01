@@ -19,6 +19,10 @@ namespace Game_Project_1
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 750;  // set this value to the desired width of your window
+            _graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
+            _graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
@@ -51,7 +55,7 @@ namespace Game_Project_1
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SkyBlue);
+            GraphicsDevice.Clear(new Color(131, 180, 199));
             base.Draw(gameTime);    // The real drawing happens inside the ScreenManager component
         }
     }

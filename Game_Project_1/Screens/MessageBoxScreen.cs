@@ -21,8 +21,8 @@ namespace Game_Project_1.Screens
         // "A=ok, B=cancel" usage text prompt.
         public MessageBoxScreen(string message, bool includeUsageText = true)
         {
-            const string usageText = "\nPress Space or Enter to Replay" +
-                                     "\nPress Backspace or Escape to Exit";
+            const string usageText = "\n\nPress Space or Enter to Replay" +
+                                     "\n\nPress Backspace or Escape to Exit";
 
             if (includeUsageText)
                 _message = message + usageText;
