@@ -92,18 +92,10 @@ namespace Game_Project_1
         /// <param name="gameTime">The game time</param>
         public void Update(GameTime gameTime)
         {
-            waitTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (this.Position.X <= -64 && EggReset) this.Position = Start;
             else if (this.Position.X > -64 && EggReset)
             {
-
-
-                if (waitTimer - waitTime >= 15 && accelerationChange < 0.01)
-                {
-                    velocity = new Vector2(velocity.X + accelerationChange, Position.Y);
-                    waitTime = gameTime.ElapsedGameTime.TotalSeconds;
-                }
 
                 float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

@@ -88,13 +88,6 @@ namespace Game_Project_1
             else if (this.Position.X > -64 && BalloonReset)
             {
 
-
-                if (waitTimer - waitTime >= 15 && accelerationChange < 0.01)
-                {
-                    velocity = new Vector2(velocity.X + accelerationChange, Position.Y);
-                    waitTime = gameTime.ElapsedGameTime.TotalSeconds;
-                }
-
                 float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 Position.X -= velocity.X * t;

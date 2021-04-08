@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using Game_Project_1.StateManagement;
+using Game_Project_1.Collisions;
 
 namespace Game_Project_1.Screens
 {
@@ -24,9 +25,12 @@ namespace Game_Project_1.Screens
         private System.Random rand = new System.Random();
         private BirdSprite bird;
 
+        private BoundingCircle c;
+
         private Texture2D heart;
         private int lives = 3;
         private bool lose = false;
+        private bool hit = false;
 
         private Texture2D _foreground;
         private Texture2D _midground;
@@ -36,7 +40,12 @@ namespace Game_Project_1.Screens
         public SoundEffect heartPickup;
         public Song backgroundMusic;
 
+        private RainParticleSystem _rain;
+        private FireworkParticleSystem _fireworks;
+        private PopParticleSystem _pop;
+
         private int choice = 0;
+        private int updateSpeed = 200;
 
         private double time;
 
@@ -82,6 +91,12 @@ namespace Game_Project_1.Screens
             };
 
             bird = new BirdSprite();
+
+            c = new BoundingCircle(new Vector2(0, 0) + new Vector2(16, 16), 16);
+
+            _rain = ScreenManager._rain;
+            _fireworks = ScreenManager._fireworks;
+            _pop = ScreenManager._pop;
 
             _foreground = _content.Load<Texture2D>("Rough_Game_Foreground");
             _midground = _content.Load<Texture2D>("Rough_Game_Hills");
@@ -149,11 +164,28 @@ namespace Game_Project_1.Screens
                             heartPickup.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
                             if (lives < 5) lives++;
                             egg.Lives = false;
+                            _fireworks.PlaceFirework(new Vector2(400, 50), true);
+                            _fireworks.PlaceFirework(new Vector2(450, 100), true);
+                            _fireworks.PlaceFirework(new Vector2(500, 50), true);
+                            _fireworks.PlaceFirework(new Vector2(550, 100), true);
                         }
                         egg.Position = new Vector2(-64, 0);
                         eggPickup.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
+                        _fireworks.PlaceFirework(new Vector2(400, 50), false);
+                        _fireworks.PlaceFirework(new Vector2(450, 100), false);
+                        _fireworks.PlaceFirework(new Vector2(500, 50), false);
+                        _fireworks.PlaceFirework(new Vector2(550, 100), false);
                     }
 
+                }
+
+                if (c.Center.X > ScreenManager.GraphicsDevice.Viewport.Width + 1024) c = new BoundingCircle(new Vector2(0, 0) + new Vector2(16, 16), 16);
+                else if (c.Center.X <= ScreenManager.GraphicsDevice.Viewport.Width + 1024)
+                {
+                    float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    if (t % 30 < 2 && updateSpeed < 500) updateSpeed += 100;
+                    c.Center.X += updateSpeed * t;
                 }
 
                 foreach (var balloon in balloons)
@@ -163,12 +195,16 @@ namespace Game_Project_1.Screens
                     {
                         lives--;
                         balloon.Hit = true;
+                        hit = true;
+                        if(lives > 0) _pop.PlacePop(balloon.Position);
                     }
                 }
 
 
-                if ((eggs[choice].Position.X < -64) || eggs[choice].Collected)
+                if ((eggs[choice].Position.X < -64) || eggs[choice].Collected || hit)
                 {
+                    hit = false;
+
                     if (eggs[choice].Lives) eggs[choice].Lives = false;
                     eggs[choice].Collected = false;
 
@@ -208,6 +244,9 @@ namespace Game_Project_1.Screens
                 if (lose == false)
                 {
                     time += gameTime.ElapsedGameTime.TotalSeconds;
+
+                    if (time % 30 > 15) _rain.isRaining = true;
+                    else _rain.isRaining = false;
                 }
 
             }
@@ -251,28 +290,27 @@ namespace Game_Project_1.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, new Color(131, 180, 199), 0, 0);
 
             // Our player and enemy are both actually just text strings.
             var spriteBatch = ScreenManager.SpriteBatch;
 
             // Calculate our offset vector
-            float playerX = MathHelper.Clamp(bird.position.X, 300, 13600);
-            float offsetX = 300 - playerX;
+            float playerX = c.Center.X;
+            float offsetX = 20 - playerX;
 
             Matrix transform;
 
             // Background
-            transform = Matrix.CreateTranslation(offsetX * 0.333f, 0, 0);
+            transform = Matrix.CreateTranslation(offsetX, 0, 0);
             spriteBatch.Begin(transformMatrix: transform);
             spriteBatch.Draw(_background, new Vector2(0,0), Color.White);
             spriteBatch.End();
 
             // Midground
-            transform = Matrix.CreateTranslation(offsetX * 0.666f, 0, 0);
+            transform = Matrix.CreateTranslation(offsetX, 0, 0);
             spriteBatch.Begin(transformMatrix: transform);
-            spriteBatch.Draw(_midground, new Vector2(0, 275), Color.White);
+            spriteBatch.Draw(_midground, new Vector2(0, 825), Color.White);
             spriteBatch.End();
 
             //Foreground
@@ -283,8 +321,8 @@ namespace Game_Project_1.Screens
 
             spriteBatch.Begin();
 
-            if (lose == false) spriteBatch.DrawString(_font, $"Time: {time:0.##} secs", new Vector2(400, 910), new Color(244, 255, 255));
-            if (ScreenManager.gameCounter > 0) spriteBatch.DrawString(_font, $"Best Time: {ScreenManager.bestTime:0.##} secs", new Vector2(350, 955), new Color(244, 255, 255));
+            if (lose == false) spriteBatch.DrawString(_font, $"Time: {time:0.##} secs", new Vector2(0, 910), new Color(244, 255, 255));
+            if (ScreenManager.gameCounter > 0) spriteBatch.DrawString(_font, $"Best Time: {ScreenManager.bestTime:0.##} secs", new Vector2(0, 955), new Color(244, 255, 255));
 
             
             foreach (var egg in eggs)
@@ -314,7 +352,7 @@ namespace Game_Project_1.Screens
             if (lives <= 0)
             {
                 lose = true;
-                bird.Color = Color.Red;
+                _rain.isRaining = false;
                 spriteBatch.DrawString(_font, $"You Failed!", new Vector2(400, (ScreenManager.GraphicsDevice.Viewport.Height / 2)), new Color(244, 255, 255));
                 MediaPlayer.Stop();
                 if (ScreenManager.gameCounter == 0) ScreenManager.bestTime = time;

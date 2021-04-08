@@ -12,7 +12,7 @@ namespace Game_Project_1.StateManagement
     /// It maintains a stack of screens, calls their Update and Draw methods when 
     /// appropriate, and automatically routes input to the topmost screen.
     /// </summary>
-    public class ScreenManager : DrawableGameComponent
+    public class ScreenManager : DrawableGameComponent, IParticleEmitter
     {
         private readonly List<GameScreen> _screens = new List<GameScreen>();
         private readonly List<GameScreen> _tmpScreensList = new List<GameScreen>();
@@ -21,6 +21,15 @@ namespace Game_Project_1.StateManagement
         private readonly InputState _input = new InputState();
 
         private bool _isInitialized;
+
+        public RainParticleSystem _rain;
+        public FireworkParticleSystem _fireworks;
+        public PopParticleSystem _pop;
+
+
+        public Vector2 Position { get; set; }
+
+        public Vector2 Velocity { get; set; }
 
         /// <summary>
         /// A SpriteBatch shared by all GameScreens
@@ -66,6 +75,16 @@ namespace Game_Project_1.StateManagement
         /// </summary>
         public override void Initialize()
         {
+
+            // TODO: Add your initialization logic here
+            _rain = new RainParticleSystem(this.Game, new Rectangle(0, -50, 650, 827));
+            this.Game.Components.Add(_rain);
+
+            _fireworks = new FireworkParticleSystem(this.Game, 20);
+            this.Game.Components.Add(_fireworks);
+
+            _pop = new PopParticleSystem(this.Game, 15);
+            this.Game.Components.Add(_pop);
 
             base.Initialize();
             _isInitialized = true;

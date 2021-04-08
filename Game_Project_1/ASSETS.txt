@@ -1,7 +1,7 @@
 ﻿
         ﻿Content/birds.32x32.png - created by MoikMellah of OpenGameArt.org (https://opengameart.org/content/animated-birds-32x32), released under public domain
 
-        ﻿Content/egg.png - created by GoopyBus of OpenGameArt.org (https://opengameart.org/content/egg-item-sprite), released under public domain
+        ﻿Content/Egg.png - created by GoopyBus of OpenGameArt.org (https://opengameart.org/content/egg-item-sprite), released under public domain
 
         Content/birdchirping071414.wav - created by syncopika of OpenGameArt.org (https://opengameart.org/content/bird-chirping-sounds), released under public domain
 
@@ -12,5 +12,7 @@
         Content/New Piskel.png - created by djantosh10 of OpenGameArt.org (https://opengameart.org/content/heart-5), released under public domain
 
         Content/Pickup_Coin15.wav - created by Nathan Bean for Audio Exercise tutorial with BXFR, released under public domain
+
+        Content/drop.png, Content/circle.png, and Content/particle.png created by Nathan Bean for Particle System tutorial and released into the public domain.
 
         Content/Bangers/Bangers-Regular.ttf - Bangers font created by Vernon Adams, released on Google Fonts (https://fonts.google.com/specimen/Bangers) under the Open Font License

@@ -19,7 +19,7 @@ namespace Game_Project_1
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 750;  // set this value to the desired width of your window
+            _graphics.PreferredBackBufferWidth = 650;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
 
