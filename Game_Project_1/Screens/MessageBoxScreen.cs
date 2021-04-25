@@ -21,8 +21,8 @@ namespace Game_Project_1.Screens
         // "A=ok, B=cancel" usage text prompt.
         public MessageBoxScreen(string message, bool includeUsageText = true)
         {
-            const string usageText = "\n\nPress Space or Enter to Replay" +
-                                     "\n\nPress Backspace or Escape to Exit";
+            const string usageText = "\n\nPress Space or Enter to Quit" +
+                                     "\n\nPress Backspace to Return to Pause Menu";
 
             if (includeUsageText)
                 _message = message + usageText;
@@ -37,7 +37,7 @@ namespace Game_Project_1.Screens
             _menuSelect = new InputAction(
                 new[] { Keys.Enter, Keys.Space }, true);
             _menuCancel = new InputAction(
-                new[] { Keys.Back, Keys.Escape }, true);
+                new[] { Keys.Back }, true);
         }
 
         // Loads graphics content for this screen. This uses the shared ContentManager
@@ -46,7 +46,8 @@ namespace Game_Project_1.Screens
         // it will just get back another reference to the already loaded data.
         public override void Activate()
         {
-
+            var content = ScreenManager.Game.Content;
+                _gradientTexture = content.Load<Texture2D>("blank");
         }
 
         public override void HandleInput(GameTime gameTime, InputState input)
@@ -95,8 +96,8 @@ namespace Game_Project_1.Screens
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_gradientTexture, backgroundRectangle, color);
-            spriteBatch.DrawString(font, _message, textPosition, color);
+            spriteBatch.Draw(_gradientTexture, backgroundRectangle, new Color(85, 149, 111) * TransitionAlpha);
+            spriteBatch.DrawString(font, _message, textPosition, new Color(244, 255, 255) * TransitionAlpha);
 
             spriteBatch.End();
         }

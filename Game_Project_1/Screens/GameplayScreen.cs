@@ -38,13 +38,19 @@ namespace Game_Project_1.Screens
 
         public SoundEffect eggPickup;
         public SoundEffect heartPickup;
+        public SoundEffect popSound;
         public Song backgroundMusic;
 
         private RainParticleSystem _rain;
         private FireworkParticleSystem _fireworks;
         private PopParticleSystem _pop;
 
-        private int choice = 0;
+        private int choice;
+        private int count;
+
+        private int columnChoice = 0;
+        private int[][] column;
+
         private int updateSpeed = 200;
 
         private double time;
@@ -76,18 +82,27 @@ namespace Game_Project_1.Screens
 
             eggs = new EggSprite[]
             {
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 250), true),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 400), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 250), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 350), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 450), false),
                 new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 550), false),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 700), false)
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 650), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 750), false)
             };
 
             balloons = new BalloonSprite[]
             {
-                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 250), false),
-                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 400), true),
+                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 250), true),
+                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 350), true),
+                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 450), false),
                 new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 550), true),
-                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 700), true)
+                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 650), true),
+                new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 750), true)
+            };
+
+            column = new int[][]
+            {
+                new int[]{ 1, 1, 1, 1, 1, 1 }
             };
 
             bird = new BirdSprite();
@@ -113,6 +128,7 @@ namespace Game_Project_1.Screens
             _font = _content.Load<SpriteFont>("bangers");
             eggPickup = _content.Load<SoundEffect>("birdchirping071414");
             heartPickup = _content.Load<SoundEffect>("Pickup_Coin15");
+            popSound = _content.Load<SoundEffect>("pop");
             backgroundMusic = _content.Load<Song>("Komiku - Tale on the Late - 13 The Wind");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
@@ -120,7 +136,7 @@ namespace Game_Project_1.Screens
             heart = _content.Load<Texture2D>("New Piskel");
 
             //Pause to allow player chance to read instructions
-            Thread.Sleep(2500);
+            Thread.Sleep(5000);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -153,6 +169,8 @@ namespace Game_Project_1.Screens
 
             if (IsActive)
             {
+                int length = column[columnChoice].Length;
+
                 foreach (var egg in eggs)
                 {
                     egg.Update(gameTime);
@@ -161,7 +179,7 @@ namespace Game_Project_1.Screens
                         egg.Collected = true;
                         if (egg.Lives == true)
                         {
-                            heartPickup.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
+                            eggPickup.Play(volume: 0.6f, pitch: 0.0f, pan: 0.0f);
                             if (lives < 5) lives++;
                             egg.Lives = false;
                             _fireworks.PlaceFirework(new Vector2(400, 50), true);
@@ -170,11 +188,6 @@ namespace Game_Project_1.Screens
                             _fireworks.PlaceFirework(new Vector2(550, 100), true);
                         }
                         egg.Position = new Vector2(-64, 0);
-                        eggPickup.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
-                        _fireworks.PlaceFirework(new Vector2(400, 50), false);
-                        _fireworks.PlaceFirework(new Vector2(450, 100), false);
-                        _fireworks.PlaceFirework(new Vector2(500, 50), false);
-                        _fireworks.PlaceFirework(new Vector2(550, 100), false);
                     }
 
                 }
@@ -184,47 +197,64 @@ namespace Game_Project_1.Screens
                 {
                     float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                    if (t % 30 < 2 && updateSpeed < 500) updateSpeed += 100;
                     c.Center.X += updateSpeed * t;
                 }
 
-                foreach (var balloon in balloons)
+                for (int i = 0; i < length; i++)
                 {
-                    balloon.Update(gameTime);
-                    if (!balloon.Hit && balloon.Bounds.CollidesWith(bird.Bounds))
+                    if (column[columnChoice][i] == 1)
                     {
-                        lives--;
-                        balloon.Hit = true;
-                        hit = true;
-                        if(lives > 0) _pop.PlacePop(balloon.Position);
+                        balloons[i].Update(gameTime);
+                        if (!balloons[i].Hit && balloons[i].Bounds.CollidesWith(bird.Bounds))
+                        {
+                            lives--;
+                            balloons[i].Hit = true;
+                            hit = true;
+                            popSound.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
+                            if (lives > 0) _pop.PlacePop(balloons[i].Position);
+                        }
+
+                        if (balloons[i].Position.X < -64)
+                        {
+                            hit = true;
+                        }
+
                     }
                 }
 
 
-                if ((eggs[choice].Position.X < -64) || eggs[choice].Collected || hit)
+                if (eggs[choice].Collected || hit)
                 {
-                    hit = false;
-
-                    if (eggs[choice].Lives) eggs[choice].Lives = false;
-                    eggs[choice].Collected = false;
-
                     System.Random rand = new System.Random();
-                    if (rand.NextDouble() > 0.90) eggs[choice].Lives = true;
 
+                    hit = false;
+                    count = 0;
+                    int eggSpot = rand.Next(0, 7);
+
+                    eggs[choice].Lives = false;
+                    eggs[choice].Collected = false;
                     eggs[choice].EggReset = false;
-                    foreach (var b in balloons)
+
+                    
+                    for (int i = 0; i < length; i++)
                     {
-                        b.BalloonReset = false;
-                        b.Hit = false;
+                        if (column[columnChoice][i] == 1)
+                        {
+                            balloons[i].BalloonReset = false;
+                            balloons[i].Hit = false;
+                            count = count + 1;
+
+                            if (count == eggSpot)
+                            {
+                                choice = i;
+                            }
+                        }
+
                     }
-                        
 
-                    choice = rand.Next(0, 4);
-                    eggs[choice].EggReset = true;
-
-                    for (int i = 0; i <= balloons.Length - 1; i++)
+                    for (int i = 0; i < length; i++)
                     {
-                        if(i != choice)
+                        if ((column[columnChoice][i] == 1) && (i != choice))
                         {
                             balloons[i].BalloonReset = true;
                             balloons[i].Ready = true;
@@ -232,7 +262,13 @@ namespace Game_Project_1.Screens
                         }
                     }
 
-                    eggs[choice].Ready = true;
+                    if (rand.NextDouble() > 0.90) eggs[choice].Lives = true;
+
+                    if (eggs[choice].Lives)
+                    {
+                        eggs[choice].EggReset = true;
+                        eggs[choice].Ready = true;
+                    }
 
                 }
 
@@ -245,7 +281,10 @@ namespace Game_Project_1.Screens
                 {
                     time += gameTime.ElapsedGameTime.TotalSeconds;
 
-                    if (time % 30 > 15) _rain.isRaining = true;
+                    if (time % 30 > 15)
+                    {
+                        _rain.isRaining = true;
+                    }
                     else _rain.isRaining = false;
                 }
 
@@ -272,18 +311,26 @@ namespace Game_Project_1.Screens
             int playerIndex = (int)ControllingPlayer.Value;
 
             var keyboardState = input.CurrentKeyboardStates[playerIndex];
-
+            PlayerIndex player;
+            if (_pauseAction.Occurred(input, ControllingPlayer, out player))
+            {
+                _rain.isRaining = false;
+                ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
+            }
+            else
+            {
                 // Otherwise move the player position.
-            var movement = Vector2.Zero;
+                var movement = Vector2.Zero;
 
-            if (keyboardState.IsKeyDown(Keys.Up))
-                movement.Y--;
+                if (keyboardState.IsKeyDown(Keys.Up))
+                    movement.Y--;
 
-            if (keyboardState.IsKeyDown(Keys.Down))
-                movement.Y++;
+                if (keyboardState.IsKeyDown(Keys.Down))
+                    movement.Y++;
 
-            if (movement.Length() > 1)
-                movement.Normalize();
+                if (movement.Length() > 1)
+                    movement.Normalize();
+            }
 
         }
 
@@ -324,7 +371,7 @@ namespace Game_Project_1.Screens
             if (lose == false) spriteBatch.DrawString(_font, $"Time: {time:0.##} secs", new Vector2(0, 910), new Color(244, 255, 255));
             if (ScreenManager.gameCounter > 0) spriteBatch.DrawString(_font, $"Best Time: {ScreenManager.bestTime:0.##} secs", new Vector2(0, 955), new Color(244, 255, 255));
 
-            
+
             foreach (var egg in eggs)
             {
                 if (lose == false) egg.Draw(gameTime, spriteBatch);

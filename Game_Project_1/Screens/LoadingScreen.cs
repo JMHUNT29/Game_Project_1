@@ -89,7 +89,7 @@ namespace Game_Project_1.Screens
                 var spriteBatch = ScreenManager.SpriteBatch;
                 var font = ScreenManager.Font;
 
-                const string message = "Loading...\n\nCatch as many eggs as you can!\nAvoid the balloons!";
+                const string message = "Loading...\n\nUse the up and down arrows \nto avoid the balloons! \n\nCollect eggs for extra lives! \n\nStay alive as long as possible!";
 
                 // Center the text in the viewport.
                 var viewport = ScreenManager.GraphicsDevice.Viewport;

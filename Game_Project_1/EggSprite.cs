@@ -24,7 +24,7 @@ namespace Game_Project_1
         /// </summary>
         public Vector2 Position;
 
-        private Vector2 velocity;
+        public Vector2 velocity;
 
         private Texture2D texture;
 
@@ -118,8 +118,7 @@ namespace Game_Project_1
             if (Collected) return;
 
             var source = new Rectangle(0, 0, 32, 32);
-            if (Lives == true) spriteBatch.Draw(texture, Position, source, Color.Red, 0, new Vector2(32, 32), 1.5f, SpriteEffects.None, 0);
-            else spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(32, 32), 1.5f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(32, 32), 1.5f, SpriteEffects.None, 0);
 
         }
     }

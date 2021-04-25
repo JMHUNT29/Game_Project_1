@@ -41,8 +41,6 @@ namespace Game_Project_1
         /// </summary>
         protected override void Initialize()
         {
-
-
             base.Initialize();
         }
 

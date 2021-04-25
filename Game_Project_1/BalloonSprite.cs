@@ -19,7 +19,7 @@ namespace Game_Project_1
         /// </summary>
         public Vector2 Position;
 
-        private Vector2 velocity;
+        public Vector2 velocity;
 
         private Texture2D texture;
 

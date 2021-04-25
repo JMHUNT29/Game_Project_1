@@ -11,6 +11,8 @@
 
         Content/New Piskel.png - created by djantosh10 of OpenGameArt.org (https://opengameart.org/content/heart-5), released under public domain
 
+        Content/pop.wav - created by farfadet46 of OpenGameArt.org (https://opengameart.org/content/bubbles-pop), released under public domain
+
         Content/Pickup_Coin15.wav - created by Nathan Bean for Audio Exercise tutorial with BXFR, released under public domain
 
         Content/drop.png, Content/circle.png, and Content/particle.png created by Nathan Bean for Particle System tutorial and released into the public domain.

@@ -53,7 +53,7 @@ namespace Game_Project_1
         {
             keyboardState = Keyboard.GetState();
 
-            if (position.Y > 700) position = new Vector2(150, 700);
+            if (position.Y > 750) position = new Vector2(150, 750);
             else if (position.Y < 250) position = new Vector2(150, 250);
 
             // Apply keyboard movement

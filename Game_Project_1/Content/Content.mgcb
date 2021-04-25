@@ -134,6 +134,12 @@
 /processorParam:Quality=Best
 /build:Pickup_Coin15.wav
 
+#begin pop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pop.wav
+
 #begin Rough_Game_Balloon.png
 /importer:TextureImporter
 /processor:TextureProcessor
