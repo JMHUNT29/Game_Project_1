@@ -24,7 +24,6 @@ namespace Game_Project_1.Screens
             var confirmQuitMessageBox = new ExitMessageBoxScreen(message);
 
             confirmQuitMessageBox.Accepted += ConfirmQuitMessageBoxAccepted;
-
             ScreenManager.AddScreen(confirmQuitMessageBox, ControllingPlayer);
         }
 

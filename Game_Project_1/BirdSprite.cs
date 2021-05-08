@@ -59,12 +59,12 @@ namespace Game_Project_1
             // Apply keyboard movement
             if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
             {
-                position += new Vector2(0, -3)  * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(0, -2)  * 125 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
             {
-                position += new Vector2(0, 3) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(0, 2) * 125 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             /// Update the bounds

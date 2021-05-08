@@ -5,15 +5,11 @@
 
         Content/birdchirping071414.wav - created by syncopika of OpenGameArt.org (https://opengameart.org/content/bird-chirping-sounds), released under public domain
 
-        Content/Komiku - Tale on the Late - 13 The Wind.mp3 - created by Loyalty Freak Music of OpenGameArt.org (https://opengameart.org/content/the-wind), released under public domain
+        Content/bounds.Center = 007_Synthwave_421k - created by cynicmusic of OpenGameArt.org (https://opengameart.org/content/calm-relax-1-synthwave-421k), released under public domain
 
         Content/blank.png - created by Microsoft, released under Microsoft permissive license (http://www.worldlii.org/int/other/PubRL/2009/38.html)
 
-        Content/New Piskel.png - created by djantosh10 of OpenGameArt.org (https://opengameart.org/content/heart-5), released under public domain
-
         Content/pop.wav - created by farfadet46 of OpenGameArt.org (https://opengameart.org/content/bubbles-pop), released under public domain
-
-        Content/Pickup_Coin15.wav - created by Nathan Bean for Audio Exercise tutorial with BXFR, released under public domain
 
         Content/drop.png, Content/circle.png, and Content/particle.png created by Nathan Bean for Particle System tutorial and released into the public domain.
 

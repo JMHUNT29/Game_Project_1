@@ -46,10 +46,6 @@ namespace Game_Project_1.Screens
         private PopParticleSystem _pop;
 
         private int choice;
-        private int count;
-
-        private int columnChoice = 0;
-        private int[][] column;
 
         private int updateSpeed = 200;
 
@@ -82,12 +78,12 @@ namespace Game_Project_1.Screens
 
             eggs = new EggSprite[]
             {
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 250), false),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 350), false),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 450), false),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 550), false),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 650), false),
-                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 750), false)
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 240), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 340), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 440), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 540), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 640), false),
+                new EggSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 60, 740), false)
             };
 
             balloons = new BalloonSprite[]
@@ -98,11 +94,6 @@ namespace Game_Project_1.Screens
                 new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 550), true),
                 new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 650), true),
                 new BalloonSprite(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + 64, 750), true)
-            };
-
-            column = new int[][]
-            {
-                new int[]{ 1, 1, 1, 1, 1, 1 }
             };
 
             bird = new BirdSprite();
@@ -127,13 +118,14 @@ namespace Game_Project_1.Screens
             bird.LoadContent(_content);
             _font = _content.Load<SpriteFont>("bangers");
             eggPickup = _content.Load<SoundEffect>("birdchirping071414");
-            heartPickup = _content.Load<SoundEffect>("Pickup_Coin15");
             popSound = _content.Load<SoundEffect>("pop");
-            backgroundMusic = _content.Load<Song>("Komiku - Tale on the Late - 13 The Wind");
+            backgroundMusic = _content.Load<Song>("007_Synthwave_421k");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
 
-            heart = _content.Load<Texture2D>("New Piskel");
+            choice = 3;
+
+            heart = _content.Load<Texture2D>("Rough_Game_Heart");
 
             //Pause to allow player chance to read instructions
             Thread.Sleep(5000);
@@ -169,7 +161,7 @@ namespace Game_Project_1.Screens
 
             if (IsActive)
             {
-                int length = column[columnChoice].Length;
+                int length = 6;
 
                 foreach (var egg in eggs)
                 {
@@ -202,23 +194,20 @@ namespace Game_Project_1.Screens
 
                 for (int i = 0; i < length; i++)
                 {
-                    if (column[columnChoice][i] == 1)
+                    balloons[i].Update(gameTime);
+
+                    if (!balloons[i].Hit && balloons[i].Bounds.CollidesWith(bird.Bounds))
                     {
-                        balloons[i].Update(gameTime);
-                        if (!balloons[i].Hit && balloons[i].Bounds.CollidesWith(bird.Bounds))
-                        {
-                            lives--;
-                            balloons[i].Hit = true;
-                            hit = true;
-                            popSound.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
-                            if (lives > 0) _pop.PlacePop(balloons[i].Position);
-                        }
+                        lives--;
+                        balloons[i].Hit = true;
+                        hit = true;
+                        popSound.Play(volume: 0.4f, pitch: 0.0f, pan: 0.0f);
+                        if (lives > 0) _pop.PlacePop(balloons[i].Position);
+                    }
 
-                        if (balloons[i].Position.X < -64)
-                        {
-                            hit = true;
-                        }
-
+                    if ((balloons[i].Bounds.Center.X + 32 < 0) && (i != choice))
+                    {
+                        hit = true;
                     }
                 }
 
@@ -228,7 +217,6 @@ namespace Game_Project_1.Screens
                     System.Random rand = new System.Random();
 
                     hit = false;
-                    count = 0;
                     int eggSpot = rand.Next(0, 7);
 
                     eggs[choice].Lives = false;
@@ -238,23 +226,18 @@ namespace Game_Project_1.Screens
                     
                     for (int i = 0; i < length; i++)
                     {
-                        if (column[columnChoice][i] == 1)
-                        {
                             balloons[i].BalloonReset = false;
                             balloons[i].Hit = false;
-                            count = count + 1;
 
-                            if (count == eggSpot)
+                            if (i == eggSpot)
                             {
                                 choice = i;
                             }
-                        }
-
                     }
 
                     for (int i = 0; i < length; i++)
                     {
-                        if ((column[columnChoice][i] == 1) && (i != choice))
+                        if (i != choice)
                         {
                             balloons[i].BalloonReset = true;
                             balloons[i].Ready = true;

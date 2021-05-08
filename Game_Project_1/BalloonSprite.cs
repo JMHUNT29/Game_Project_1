@@ -64,7 +64,7 @@ namespace Game_Project_1
             //Sets start position for egg.
             this.Start = position;
             this.bounds = new BoundingCircle(position + new Vector2(32, 32), 32);
-            velocity = new Vector2(300, this.Position.Y);
+            velocity = new Vector2(290, this.Position.Y);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Game_Project_1
 
             if (Hit) this.bounds = new BoundingCircle(new Vector2(32, 32), 32);
             /// Update the bounds
-            else this.bounds = new BoundingCircle(Position + new Vector2(32, 32), 32);
+            else bounds.Center = new Vector2(Position.X, Position.Y);
 
         }
 
@@ -109,8 +109,8 @@ namespace Game_Project_1
         {
             if (Hit) return;
 
-            var source = new Rectangle(0, 0, 64, 64);
-            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(64, 64), 0.85f, SpriteEffects.None, 0);
+            var source = new Rectangle(0, 0, 64, 73);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(64, 73), 0.85f, SpriteEffects.None, 0);
 
         }
     }

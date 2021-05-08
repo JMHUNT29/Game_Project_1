@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Game_Project_1.StateManagement;
+using Microsoft.Xna.Framework.Media;
 
 namespace Game_Project_1.Screens
 {
@@ -19,6 +20,8 @@ namespace Game_Project_1.Screens
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
+
+            MediaPlayer.Stop();
         }
 
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
